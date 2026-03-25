@@ -64,7 +64,10 @@ npm run dev                    # Start dev server on port 3001
 
 ## Common Tasks
 
-- **Add a new table:** Define it in `src/db/schema.ts` with `pgTable()`, then run `npx drizzle-kit generate` and `npx drizzle-kit push`.
+- **Add a new table:** Define it in `src/db/schema.ts` with `pgTable()`, then run `npm run db:generate` to create a new migration file under `drizzle/`, and `npm run db:migrate` to apply the schema change to the database.
+- **Change an existing table:** Update the table definition in `src/db/schema.ts`, run `npm run db:generate`, review the generated SQL in `drizzle/`, then run `npm run db:migrate`.
+- **Seed after schema changes:** If the new table or column needs demo data, update `src/db/seed.ts` and run `npm run db:seed`. Keep the seed script idempotent.
+- **Full local setup:** Use `npm run db:setup` when you need to create the database, apply migrations, and load seed data in one step.
 - **Add a new endpoint:** Create or edit a route file in `src/routes/`, mount it in `src/index.ts`.
 - **Re-seed data:** Run `npm run db:seed`. It's idempotent -- existing data won't be duplicated.
 - **Reset database completely:** Drop the DB (`dropdb stock_tracker`), then `npm run db:setup` (it recreates everything).
